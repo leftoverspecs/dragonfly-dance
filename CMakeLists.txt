@@ -7,3 +7,4 @@ find_package(SDL2 REQUIRED CONFIG)
 find_package(SDL2_net REQUIRED CONFIG)
 
 add_subdirectory(engine)
+add_subdirectory(tests)
