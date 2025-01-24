@@ -40,15 +40,16 @@ public:
 
 
 private:
+    float time{0.0f};
     engine::sdl::OpenGlWindow window;
     Bubbles bubbles;
     engine::opengl::SpriteMap sprites;
     engine::opengl::SpriteRenderer renderer;
 
     void on_loop(float delta_time) override {
+        time += delta_time;
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
         {
             auto target = bubbles.bind_as_target();
             glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -72,7 +73,7 @@ private:
             }
             renderer.draw();
         }
-        bubbles.draw();
+        bubbles.draw(time);
     }
 };
 
