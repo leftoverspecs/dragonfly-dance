@@ -18,6 +18,7 @@
 
 Game::Game(GLfloat width,
            GLfloat height,
+           engine::opengl::Screen& screen,
            engine::sdl::OpenGlWindow &window,
            engine::sdl::Controller &controller1,
            engine::sdl::Controller &controller2,
@@ -27,7 +28,7 @@ Game::Game(GLfloat width,
            engine::opengl::Font &font,
            Music &music,
            int players)
-    : Scene(height, window),
+    : Scene(screen, height, window),
       controller1(&controller1),
       controller2(players == 2 ? &controller2 : nullptr),
       background(&background),

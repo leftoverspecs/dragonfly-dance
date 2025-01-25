@@ -39,6 +39,7 @@ int main(int argc, char *argv[]) {
                                         WIDTH,
                                         HEIGHT,
                                         SDL_WINDOW_SHOWN);
+    engine::opengl::Screen screen(WIDTH, HEIGHT);
     engine::audio::Audio audio(44100, MIX_DEFAULT_FORMAT, 2, 128);
     Background background(WIDTH, HEIGHT);
     engine::sdl::Controller controller1(0);
@@ -49,7 +50,7 @@ int main(int argc, char *argv[]) {
     engine::opengl::SpriteRenderer player2(player2map, WIDTH, HEIGHT);
     BoxyFont font(WIDTH, HEIGHT);
     Music music;
-    Intro intro(WIDTH, HEIGHT, window, controller1, controller2, background, player1, player2, font, music);
+    Intro intro(WIDTH, HEIGHT, screen, window, controller1, controller2, background, player1, player2, font, music);
     while (true) {
         controller1.reset();
         controller2.reset();
@@ -58,7 +59,7 @@ int main(int argc, char *argv[]) {
         }
         controller1.reset();
         controller2.reset();
-        Game game(WIDTH, HEIGHT, window, controller1, controller2, background, player1, player2, font, music, intro.get_players());
+        Game game(WIDTH, HEIGHT, screen, window, controller1, controller2, background, player1, player2, font, music, intro.get_players());
         if (!game.run()) {
             break;
         }

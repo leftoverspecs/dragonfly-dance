@@ -9,6 +9,7 @@
 
 Intro::Intro(GLfloat width,
              GLfloat height,
+             engine::opengl::Screen& screen,
              engine::sdl::OpenGlWindow &window,
              engine::sdl::Controller &controller1,
              engine::sdl::Controller &controller2,
@@ -17,7 +18,7 @@ Intro::Intro(GLfloat width,
              engine::opengl::SpriteRenderer &player2,
              engine::opengl::Font &font,
              Music &music)
-    : Scene(height, window),
+    : Scene(screen, height, window),
       controller1(&controller1),
       controller2(&controller2),
       background(&background),

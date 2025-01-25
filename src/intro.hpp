@@ -21,6 +21,7 @@ class Intro : public engine::sdl::Scene {
 public:
     Intro(GLfloat width,
           GLfloat height,
+          engine::opengl::Screen& screen,
           engine::sdl::OpenGlWindow &window,
           engine::sdl::Controller &controller1,
           engine::sdl::Controller &controller2,
