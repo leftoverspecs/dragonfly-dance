@@ -18,6 +18,8 @@ add_executable(game WIN32 src/game.cpp
     src/background.hpp
     src/player.cpp
     src/player.hpp
+    src/dragonflies.cpp
+    src/dragonflies.hpp
 )
 target_link_libraries(game PRIVATE engine SDL2::SDL2main)
 target_assets(game PRIVATE
@@ -26,5 +28,6 @@ target_assets(game PRIVATE
     assets/background.png
     assets/player.png
     assets/player2.png
+    assets/dragonfly.png
 )
 target_include_directories(game PRIVATE ${CMAKE_CURRENT_BINARY_DIR})

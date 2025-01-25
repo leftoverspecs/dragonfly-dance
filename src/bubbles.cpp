@@ -4,6 +4,7 @@
 #include "bubbles_sprite.hpp"
 
 #include <glm/gtx/transform.hpp>
+#include <map>
 
 
 namespace {
@@ -48,13 +49,19 @@ void Bubbles::draw(float time) {
 }
 
 void Bubbles::add_bubble(glm::vec2 position) {
-    for (auto &bubble : bubbles) {
+    for (auto &bubble: bubbles) {
         if (distance(position, bubble.get_position()) < bubble.get_radius()) {
             bubble.inflate();
             return;
         }
     }
     bubbles.push_back(Bubble{position, 20.0f});
+}
+
+bool Bubbles::check_bubbles(glm::vec2 position) {
+    return std::erase_if(bubbles, [&position](Bubble &bubble) {
+        return distance(position, bubble.get_position()) < bubble.get_radius();
+    }) > 0;
 }
 
 void Bubbles::Bubble::update(float delta_time) {

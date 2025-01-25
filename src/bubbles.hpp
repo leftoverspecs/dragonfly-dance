@@ -14,6 +14,7 @@ public:
     void draw(float time);
 
     void add_bubble(glm::vec2 position);
+    bool check_bubbles(glm::vec2 position);
 
 private:
     engine::opengl::SpriteMap map;

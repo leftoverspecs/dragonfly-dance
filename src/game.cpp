@@ -1,5 +1,6 @@
 #include "background.hpp"
 #include "bubbles.hpp"
+#include "dragonflies.hpp"
 #include "player.hpp"
 
 
@@ -42,6 +43,7 @@ public:
           background(WIDTH, HEIGHT),
           player1(controller1, bubbles, true, 0, 0, WIDTH, HEIGHT),
           player2(controller2, bubbles, false, WIDTH - 10, 10, WIDTH, HEIGHT),
+          dragonflies(bubbles, WIDTH, HEIGHT),
           sprites(floor_stone_png, sizeof(floor_stone_png), 1, 1),
           renderer(sprites, WIDTH, HEIGHT) {
         player1.set_other(player2);
@@ -58,6 +60,7 @@ private:
     Background background;
     Player player1;
     Player player2;
+    Dragonflies dragonflies;
     engine::opengl::SpriteMap sprites;
     engine::opengl::SpriteRenderer renderer;
 
@@ -66,6 +69,7 @@ private:
         bubbles.update(delta_time);
         player1.update(delta_time);
         player2.update(delta_time);
+        dragonflies.update(delta_time);
 
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -92,6 +96,7 @@ private:
         background.draw();
         player1.draw();
         player2.draw();
+        dragonflies.draw();
         bubbles.draw(time);
     }
 };
