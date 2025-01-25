@@ -29,11 +29,13 @@ const float RIGHT_BORDER = 45.0f;
 }
 
 Player::Player(engine::sdl::Controller &controller,
+               Bubbles &bubbles,
                bool female, float x, float y, GLfloat screen_width, GLfloat screen_height)
   : female(female),
     time(0.0f),
     sprites(female ? player_png : player2_png, female ? sizeof(player_png) : sizeof(player2_png), female ? 9 : 13, female ? 7 : 16),
     renderer(sprites, screen_width, screen_height),
+    bubbles(&bubbles),
     controller(&controller),
     sprite_index_i(0),
     sprite_index_j(0),
@@ -78,6 +80,7 @@ void Player::update(float msec) {
         slash_time += msec;
     } else {
         slash_time = 0;
+        bubbled = false;
     }
 
     velocity.x /= HORIZONTAL_FRICTION;
@@ -107,8 +110,9 @@ void Player::update(float msec) {
         // Player drew its sword
         sprite_index_j = 2;
         sprite_index_i = std::min(static_cast<int>(std::floor(slash_time / 100.0f)) + 1, 8);
-        if (sprite_index_i < 8) {
-            // hit something!
+        if (!bubbled) {
+            bubbles->add_bubble(position + 25.0f * glm::vec2(static_cast<float>(rand()) / RAND_MAX, static_cast<float>(rand()) / RAND_MAX) + glm::vec2(0.0f, 75.0f));
+            bubbled = true;
         }
     } else if (position.y > GROUND_MARGIN) {
         // Player is in air

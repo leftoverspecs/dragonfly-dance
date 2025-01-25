@@ -1,5 +1,8 @@
 #pragma once
 
+#include "bubbles.hpp"
+
+
 #include <glm/vec2.hpp>
 
 #include <opengl/box.hpp>
@@ -7,9 +10,12 @@
 #include <opengl/spritemap.hpp>
 #include <opengl/spriterenderer.hpp>
 
+class Bubbles;
+
 class Player {
 public:
     Player(engine::sdl::Controller &controller,
+           Bubbles &bubbles,
            bool female, float x, float y, GLfloat width, GLfloat height);
 
     glm::vec2 get_position() const { return position; }
@@ -23,6 +29,7 @@ private:
     float time;
     engine::opengl::SpriteMap sprites;
     engine::opengl::SpriteRenderer renderer;
+    Bubbles *bubbles;
     engine::sdl::Controller *controller;
     int sprite_index_i;
     int sprite_index_j;
@@ -33,6 +40,7 @@ private:
     glm::vec2 velocity;
     float last_time_standing;
     float slash_time;
+    bool bubbled{false};
     float dead_time;
     float screen_width;
     float hit_cooldown;

@@ -1,5 +1,6 @@
 #include "bubbles.hpp"
 
+#include "background.hpp"
 #include "bubbles_sprite.hpp"
 
 #include <glm/gtx/transform.hpp>
@@ -26,35 +27,53 @@ Bubbles::Bubbles(GLsizei width, GLsizei height)
     : map(bubbles_sprite, bubbles_sprite_size, 24, 16),
       renderer(map, width, height),
       screen_width(width), screen_height(height) {
-    for (int i = 0; i < 10; ++i) {
-        add_bubble(glm::vec2(width * static_cast<GLfloat>(rand()) / RAND_MAX, height * static_cast<GLfloat>(rand()) / RAND_MAX),
-            0.5 * height * static_cast<GLfloat>(rand()) / RAND_MAX);
+}
+
+void Bubbles::update(float delta_time) {
+    for (auto &bubble : bubbles) {
+        bubble.update(delta_time);
     }
-    /*bubbles.push_back(BubbleEntry{0.5f});
-    bubbles.push_back(BubbleEntry{0.5f});
-    bubbles.push_back(BubbleEntry{0.07f});
-
-    bubbles.push_back(BubbleEntry{0.75f});
-    bubbles.push_back(BubbleEntry{0.75f});
-    bubbles.push_back(BubbleEntry{0.08f});
-
-    bubbles.push_back(BubbleEntry{0.25f});
-    bubbles.push_back(BubbleEntry{0.25f});
-    bubbles.push_back(BubbleEntry{0.02f});*/
 }
 
 void Bubbles::draw(float time) {
     renderer.clear();
     for (const auto &bubble : bubbles) {
         glm::mat4 model(1.0f);
-        model = glm::translate(model, glm::vec3(bubble.position, 0.0f));
-        model = scale(model, glm::vec3(bubble.radius, bubble.radius, 1.0));
+        model = glm::translate(model, glm::vec3(bubble.get_position(), 0.0f));
+        model = scale(model, glm::vec3(bubble.get_radius(), bubble.get_radius(), 1.0));
         model = translate(model, glm::vec3(-0.5f, -0.5f, 0.0f));
         renderer.queue(model, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 16, 8, 4, 4);
     }
     renderer.draw();
 }
 
-void Bubbles::add_bubble(glm::vec2 position, GLfloat radius) {
-    bubbles.push_back(Bubble{position, radius});
+void Bubbles::add_bubble(glm::vec2 position) {
+    for (auto &bubble : bubbles) {
+        if (distance(position, bubble.get_position()) < bubble.get_radius()) {
+            bubble.inflate();
+            return;
+        }
+    }
+    bubbles.push_back(Bubble{position, 20.0f});
+}
+
+void Bubbles::Bubble::update(float delta_time) {
+    time += velocity * delta_time;
+    if (destination_radius > radius) {
+        radius += delta_time * 0.05;
+    } else {
+        destination_radius = radius;
+    }
+    if (time < 1.0f) {
+        position = (1 - time) * (1 - time) * start + 2 * time * (1 - time) * mid + time * time * end;
+    } else {
+        start = position;
+        mid = 2.0f * end - mid;
+        end = mid + 50.0f * glm::vec2(2.0f * static_cast<float>(rand()) / RAND_MAX - 1.0f, 2.0f * static_cast<float>(rand()) / RAND_MAX - 1.0f);
+        time = 0.0f;
+    }
+}
+
+void Bubbles::Bubble::inflate() {
+    destination_radius = destination_radius + 10.0f;
 }

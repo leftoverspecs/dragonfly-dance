@@ -40,8 +40,8 @@ public:
           controller2(1),
           bubbles(WIDTH, HEIGHT),
           background(WIDTH, HEIGHT),
-          player1(controller1, true, 0, 0, WIDTH, HEIGHT),
-          player2(controller2, false, WIDTH - 10, 10, WIDTH, HEIGHT),
+          player1(controller1, bubbles, true, 0, 0, WIDTH, HEIGHT),
+          player2(controller2, bubbles, false, WIDTH - 10, 10, WIDTH, HEIGHT),
           sprites(floor_stone_png, sizeof(floor_stone_png), 1, 1),
           renderer(sprites, WIDTH, HEIGHT) {
         player1.set_other(player2);
@@ -63,6 +63,7 @@ private:
 
     void on_loop(float delta_time) override {
         time += delta_time;
+        bubbles.update(delta_time);
         player1.update(delta_time);
         player2.update(delta_time);
 
