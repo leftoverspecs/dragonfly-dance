@@ -19,6 +19,9 @@ public:
     void add_or_inflate_bubble(glm::vec2 position);
     bool check_and_pop_bubble(glm::vec2 position);
 
+    std::optional<glm::vec2> get_largest_bubble_position() const;
+    size_t count() const { return bubbles.size(); }
+
 private:
     Score *score;
     engine::opengl::SpriteMap map;

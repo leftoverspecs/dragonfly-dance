@@ -18,6 +18,11 @@ void Bubbles::update(float delta_time) {
     for (auto &bubble: bubbles) {
         bubble.update(delta_time);
     }
+    std::erase_if(bubbles, [this](Bubble &bubble) {
+        const auto position = bubble.get_position();
+        GLfloat radius = bubble.get_radius();
+        return position.x < -radius || position.x > screen_width + radius || position.y < -radius || position.y > screen_height + radius;
+    });
     bool found = false;
     do {
         found = false;
@@ -79,6 +84,18 @@ bool Bubbles::check_and_pop_bubble(glm::vec2 position) {
         }
     }
     return false;
+}
+
+std::optional<glm::vec2> Bubbles::get_largest_bubble_position() const {
+    GLfloat largest_size = 0.0f;
+    std::optional<glm::vec2> result;
+    for (const auto &bubble: bubbles) {
+        if (bubble.get_destionation_radius() > largest_size) {
+            result = bubble.get_position();
+            largest_size = bubble.get_destionation_radius();
+        }
+    }
+    return result;
 }
 
 Bubbles::Bubble::Bubble(glm::vec2 position, GLfloat radius)

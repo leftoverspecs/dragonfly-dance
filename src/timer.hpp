@@ -12,7 +12,9 @@ public:
     void draw() const;
 
     bool time_is_up() const;
+    float get_available_time_percentage() const { return remaining_time / initial_time; }
 private:
     engine::opengl::Font *font;
+    float initial_time;
     float remaining_time;
 };

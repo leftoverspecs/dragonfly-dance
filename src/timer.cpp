@@ -5,16 +5,22 @@
 
 #include <glm/gtx/transform.hpp>
 
-Timer::Timer(engine::opengl::Font &font) : font(&font), remaining_time(2 * 60 * 1000) {
+Timer::Timer(engine::opengl::Font &font)
+    : font(&font),
+      initial_time(1 * 60 * 1000 + 42 * 1000),
+      remaining_time(initial_time) {
 }
 
 void Timer::update(float delta_time) {
     remaining_time -= delta_time;
+    if (remaining_time <= 0) {
+        remaining_time = 0.0f;
+    }
 }
 
 void Timer::draw() const {
-    int minutes = remaining_time > 0 ? static_cast<int>(remaining_time / (60 * 1000)) : 0;
-    int seconds = remaining_time > 0 ? static_cast<int>((remaining_time - 60 * 1000 * minutes) / 1000) : 0;
+    int minutes = static_cast<int>(remaining_time / (60 * 1000));
+    int seconds = static_cast<int>((remaining_time - 60 * 1000 * minutes) / 1000);
     std::string time = std::format("{}:{:02d}", minutes, seconds);
     glm::mat4 model(1.0f);
     model = translate(model, glm::vec3(20, 540, 0));

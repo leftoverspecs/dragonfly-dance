@@ -52,7 +52,7 @@ public:
           player1(controller1, bubbles, true, 0, 0, WIDTH, HEIGHT),
           player2(controller2, bubbles, false, WIDTH - 10, 10, WIDTH, HEIGHT),
           timer(font),
-          dragonflies(bubbles, WIDTH, HEIGHT),
+          dragonflies(bubbles, timer, WIDTH, HEIGHT),
           sprites(floor_stone_png, sizeof(floor_stone_png), 1, 1),
           renderer(sprites, WIDTH, HEIGHT) {
         player1.set_other(player2);
