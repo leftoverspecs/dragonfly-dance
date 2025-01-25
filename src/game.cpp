@@ -2,9 +2,12 @@
 #include "bubbles.hpp"
 #include "dragonflies.hpp"
 #include "player.hpp"
+#include "music.hpp"
 
 
 #include <SDL2/SDL_main.h>
+
+#include <audio/audio.hpp>
 
 #include <opengl/destination.hpp>
 #include <opengl/spritemap.hpp>
@@ -54,6 +57,7 @@ public:
 private:
     float time{0.0f};
     engine::sdl::OpenGlWindow window;
+    Music music;
     engine::sdl::Controller controller1;
     engine::sdl::Controller controller2;
     Bubbles bubbles;
@@ -63,6 +67,10 @@ private:
     Dragonflies dragonflies;
     engine::opengl::SpriteMap sprites;
     engine::opengl::SpriteRenderer renderer;
+
+    void on_startup() override {
+        music.play();
+    }
 
     void on_loop(float delta_time) override {
         time += delta_time;
@@ -103,7 +111,8 @@ private:
 
 
 int main(int argc, char *argv[]) {
-    engine::sdl::initialize init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_GAMECONTROLLER);
+    engine::sdl::initialize init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER | SDL_INIT_AUDIO);
+    engine::audio::Audio audio(44100, MIX_DEFAULT_FORMAT, 2, 128);
     SpriteTestScene scene;
     scene.run();
     return 0;

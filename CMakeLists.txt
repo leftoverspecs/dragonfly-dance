@@ -6,6 +6,7 @@ add_definitions(-DGLM_ENABLE_EXPERIMENTAL)
 
 find_package(SDL2 REQUIRED CONFIG)
 find_package(SDL2_net REQUIRED CONFIG)
+find_package(SDL2_mixer REQUIRED CONFIG)
 
 add_subdirectory(engine)
 
@@ -20,8 +21,10 @@ add_executable(game WIN32 src/game.cpp
     src/player.hpp
     src/dragonflies.cpp
     src/dragonflies.hpp
+    src/music.cpp
+    src/music.hpp
 )
-target_link_libraries(game PRIVATE engine SDL2::SDL2main)
+target_link_libraries(game PRIVATE engine SDL2::SDL2main SDL2_mixer::SDL2_mixer)
 target_assets(game PRIVATE
     assets/floor-stone.png
     assets/bubbles.png
@@ -29,5 +32,6 @@ target_assets(game PRIVATE
     assets/player.png
     assets/player2.png
     assets/dragonfly.png
+    assets/dragonfly.ogg
 )
 target_include_directories(game PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
