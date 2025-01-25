@@ -44,6 +44,6 @@ private:
     GLfloat animation_index{};
     int players{1};
 
-    void on_startup() override;
+    void on_faded_in() override;
     void on_loop(float delta_time) override;
 };

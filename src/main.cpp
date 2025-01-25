@@ -54,13 +54,13 @@ int main(int argc, char *argv[]) {
     while (true) {
         controller1.reset();
         controller2.reset();
-        if (!intro.run()) {
+        if (!intro.fade_in_and_run(500.0f)) {
             break;
         }
         controller1.reset();
         controller2.reset();
         Game game(WIDTH, HEIGHT, screen, window, controller1, controller2, background, player1, player2, font, music, intro.get_players());
-        if (!game.run()) {
+        if (!game.fade_in_and_run(500.0f)) {
             break;
         }
     }

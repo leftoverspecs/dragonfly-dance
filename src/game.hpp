@@ -51,6 +51,6 @@ private:
     Timer timer;
     Dragonflies dragonflies;
 
-    void on_startup() override;
+    void on_faded_in() override;
     void on_loop(float delta_time) override;
 };

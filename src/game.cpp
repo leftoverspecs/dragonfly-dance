@@ -46,8 +46,8 @@ Game::Game(GLfloat width,
     }
 }
 
-void Game::on_startup() {
-    music->chase();
+void Game::on_faded_in() {
+    music->fade_in_chase();
 }
 
 void Game::on_loop(float delta_time) {
@@ -58,8 +58,9 @@ void Game::on_loop(float delta_time) {
     }
     timer.update(delta_time);
     dragonflies.update(delta_time);
-    if (timer.time_is_up()) {
-        exit();
+    if (!is_fading_out() && timer.time_is_up()) {
+        engine::audio::Music::fade_out(500.0f);
+        fade_out(1000.0f);
     }
 
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

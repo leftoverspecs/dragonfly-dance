@@ -6,8 +6,11 @@ class Music {
 public:
     Music();
 
-    void chase();
-    void intro();
+    void fade_in_chase() const;
+    void fade_in_intro() const;
+
+    static void fade_out();
+
 private:
     engine::audio::Music intro_music;
     engine::audio::Music chase_music;

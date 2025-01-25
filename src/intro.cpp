@@ -30,8 +30,8 @@ Intro::Intro(GLfloat width,
       //box(100, 100, width - 200, height - 200, 100, 100, width - 200, height - 200, width, height) {
 }
 
-void Intro::on_startup() {
-    music->intro();
+void Intro::on_faded_in() {
+    music->fade_in_intro();
 }
 
 void Intro::on_loop(float delta_time) {
@@ -44,7 +44,8 @@ void Intro::on_loop(float delta_time) {
     } else if (controller1->is_button_down_pressed() || controller2->is_button_down_pressed()) {
         players = 2;
     } else if (controller1->is_button_a_pressed() || controller2->is_button_a_pressed()) {
-        exit();
+        engine::audio::Music::fade_out(500.0f);
+        fade_out(1000.0f);
     }
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

@@ -9,10 +9,14 @@ Music::Music()
     engine::audio::Music::set_volume(MIX_MAX_VOLUME / 2);
 }
 
-void Music::chase() {
+void Music::fade_in_chase() const {
     chase_music.fade_in(-1, 50);
 }
 
-void Music::intro() {
+void Music::fade_out() {
+    engine::audio::Music::fade_out(50);
+}
+
+void Music::fade_in_intro() const {
     intro_music.fade_in(-1, 50);
 }
