@@ -32,7 +32,6 @@ add_executable(game WIN32 src/game.cpp
 )
 target_link_libraries(game PRIVATE engine SDL2::SDL2main SDL2_mixer::SDL2_mixer)
 target_assets(game PRIVATE
-    assets/floor-stone.png
     assets/bubbles.png
     assets/background.png
     assets/player.png

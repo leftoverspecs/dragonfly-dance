@@ -91,34 +91,9 @@ private:
 
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-#if 0
-        /*renderer.clear();
-        for (int x = 0; x < 5; ++x) {
-            for (int y = 0; y < 5; ++y) {
-                glm::mat4 model(1.0f);
-                model = translate(model, glm::vec3(std::sin(SDL_GetTicks64() / 1000.0) * 50.0f, 0, 0));
-                model = scale(model, 2.0f * glm::vec3(sprites.get_sprite_width(), sprites.get_sprite_height(), 1.0f));
-                //model = translate(model, glm::vec3(static_cast<float>(x) / 2.0f + static_cast<float>(y) / 2.0, 5 - static_cast<float>(y) / 2.0 + static_cast<float>(x) / 2.0f, 0.0f));
-                model = translate(model, glm::vec3(
-                    2.0f + static_cast<float>(x) / 2.0f - static_cast<float>(y) / 2.0,
-                    5.0f - static_cast<float>(x) / 2.0f - static_cast<float>(y) / 2.0 /*+ 0.5f * std::sinf((x/2.0f + y) / M_PI_2 + SDL_GetTicks64() / 500.0f)*/, 0.0f));
-                //model = rotate(model, glm::radians(360.0f * static_cast<float>(SDL_GetTicks64()) / 1000.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-                //model = translate(model, glm::vec3(-0.5f, -0.5f, 0.0f));
-                //model = glm::scale(model, glm::vec3(width - 20.0f, height - 20.0f, 1.0f));
-                renderer.queue(model, glm::vec4(1.0, 1.0f, 1.0f, 1.0f), 0, 0);
-
-            }
-        }
-        renderer.draw();
-#endif
         font.clear();
         timer.draw();
         score.draw();
-        /*font.clear();
-        glm::mat4 model(1.0f);
-        model = translate(model, glm::vec3(0, 0, 0));
-        model = scale(model, 2.0f * glm::vec3(10.0, 10.0, 1.0f));
-        font.write(model, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), "Hello World"); */
         background.draw();
         player1.draw();
         player2.draw();

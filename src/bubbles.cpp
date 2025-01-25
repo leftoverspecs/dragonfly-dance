@@ -78,7 +78,7 @@ void Bubbles::add_bubble(glm::vec2 position) {
 
 bool Bubbles::check_and_pop_bubble(glm::vec2 position) {
     for (auto it = bubbles.begin(); it != bubbles.end(); ++it) {
-        if (distance(position, it->get_position()) < it->get_radius()) {
+        if (distance(position, it->get_position()) < 1.2f * it->get_radius()) {
             bubbles.erase(it);
             return true;
         }

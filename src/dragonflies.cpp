@@ -25,8 +25,7 @@ void Dragonflies::update(float delta_time) {
     for (auto &dragonfly: dragonflies) {
         dragonfly.update(delta_time);
         if (!dragonfly.is_flying_home() && bubbles->check_and_pop_bubble(dragonfly.get_position())) {
-
-            dragonfly.fly_home();
+            dragonfly.fly_home(true);
         }
     }
     if (std::erase_if(dragonflies, [this](const auto &dragonfly) {
@@ -71,10 +70,10 @@ Dragonflies::Dragonfly::Dragonfly(GLfloat width, GLfloat height, glm::vec2 start
       end(target) {
 }
 
-void Dragonflies::Dragonfly::fly_home() {
+void Dragonflies::Dragonfly::fly_home(bool inverse) {
     flies_home = true;
     start = position;
-    GLfloat end_x = !looks_right ? width + 50.0f : -50.0f;
+    GLfloat end_x = (inverse ? !looks_right : looks_right) ? width + 50.0f : -50.0f;
     end = glm::vec2(end_x, height * static_cast<GLfloat>(rand()) / RAND_MAX);
     mid = 0.5f * (start + end) + 0.1f * glm::vec2(end.y - start.y, start.x - end.x) * static_cast<GLfloat>(rand()) / static_cast<GLfloat>(RAND_MAX);
     flight_time = 5.0f * distance(start, end) /** static_cast<GLfloat>(rand()) / RAND_MAX*/;
@@ -94,7 +93,7 @@ void Dragonflies::Dragonfly::update(float delta_time) {
         position = new_position;
     } else if (!flies_home) {
         position = end;
-        fly_home();
+        fly_home(false);
     }
 }
 

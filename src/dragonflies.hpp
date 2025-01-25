@@ -21,7 +21,7 @@ private:
     public:
         Dragonfly(GLfloat width, GLfloat height, glm::vec2 start, glm::vec2 target);
 
-        void fly_home();
+        void fly_home(bool inverse);
         void update(float delta_time);
         void draw(engine::opengl::SpriteRenderer &renderer) const;
         glm::vec2 get_position() const { return position; }
