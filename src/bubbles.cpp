@@ -2,12 +2,14 @@
 
 #include "background.hpp"
 #include "bubbles_sprite.hpp"
+#include "score.hpp"
 
 #include <glm/gtx/transform.hpp>
 #include <map>
 
-Bubbles::Bubbles(GLsizei width, GLsizei height)
-    : map(bubbles_sprite, bubbles_sprite_size, 24, 16),
+Bubbles::Bubbles(GLsizei width, GLsizei height, Score &score)
+    : score(&score),
+      map(bubbles_sprite, bubbles_sprite_size, 24, 16),
       renderer(map, width, height),
       screen_width(width), screen_height(height) {
 }
@@ -23,12 +25,14 @@ void Bubbles::update(float delta_time) {
             for (auto second = next(first); second != bubbles.end(); ++second) {
                 if (first->absorbs(*second)) {
                     first->inflate(0.1f * second->get_radius());
+                    score->update(first->get_destionation_radius() / 10.0f);
                     bubbles.erase(second);
                     found = true;
                     break;
                 }
                 if (second->absorbs(*first)) {
                     second->inflate(0.1f * first->get_radius());
+                    score->update(second->get_destionation_radius() / 10.0f);
                     bubbles.erase(first);
                     found = true;
                     break;
@@ -110,5 +114,5 @@ bool Bubbles::Bubble::absorbs(const Bubble &bubble) const {
 }
 
 void Bubbles::Bubble::inflate(float update) {
-    destination_radius = destination_radius + update; // 10.0f;
+    destination_radius += update; // 10.0f;
 }

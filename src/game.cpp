@@ -1,8 +1,11 @@
 #include "background.hpp"
+#include "boxyfont.hpp"
 #include "bubbles.hpp"
 #include "dragonflies.hpp"
-#include "player.hpp"
 #include "music.hpp"
+#include "player.hpp"
+#include "score.hpp"
+#include "timer.hpp"
 
 
 #include <SDL2/SDL_main.h>
@@ -40,12 +43,15 @@ public:
                                         WIDTH,
                                         HEIGHT,
                                         SDL_WINDOW_SHOWN),
+          font(WIDTH, HEIGHT),
           controller1(0),
           controller2(1),
-          bubbles(WIDTH, HEIGHT),
+          score(font),
+          bubbles(WIDTH, HEIGHT, score),
           background(WIDTH, HEIGHT),
           player1(controller1, bubbles, true, 0, 0, WIDTH, HEIGHT),
           player2(controller2, bubbles, false, WIDTH - 10, 10, WIDTH, HEIGHT),
+          timer(font),
           dragonflies(bubbles, WIDTH, HEIGHT),
           sprites(floor_stone_png, sizeof(floor_stone_png), 1, 1),
           renderer(sprites, WIDTH, HEIGHT) {
@@ -57,13 +63,16 @@ public:
 private:
     float time{0.0f};
     engine::sdl::OpenGlWindow window;
+    BoxyFont font;
     Music music;
     engine::sdl::Controller controller1;
     engine::sdl::Controller controller2;
+    Score score;
     Bubbles bubbles;
     Background background;
     Player player1;
     Player player2;
+    Timer timer;
     Dragonflies dragonflies;
     engine::opengl::SpriteMap sprites;
     engine::opengl::SpriteRenderer renderer;
@@ -77,6 +86,7 @@ private:
         bubbles.update(delta_time);
         player1.update(delta_time);
         player2.update(delta_time);
+        timer.update(delta_time);
         dragonflies.update(delta_time);
 
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -101,11 +111,20 @@ private:
         }
         renderer.draw();
 #endif
+        font.clear();
+        timer.draw();
+        score.draw();
+        /*font.clear();
+        glm::mat4 model(1.0f);
+        model = translate(model, glm::vec3(0, 0, 0));
+        model = scale(model, 2.0f * glm::vec3(10.0, 10.0, 1.0f));
+        font.write(model, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), "Hello World"); */
         background.draw();
         player1.draw();
         player2.draw();
         dragonflies.draw();
         bubbles.draw(time);
+        font.draw();
     }
 };
 

@@ -6,9 +6,11 @@
 #include "opengl/spriterenderer.hpp"
 #include <vector>
 
+class Score;
+
 class Bubbles {
 public:
-    Bubbles(GLsizei width, GLsizei height);
+    Bubbles(GLsizei width, GLsizei height, Score &score);
 
     void update(float delta_time);
     void draw(float time);
@@ -18,6 +20,7 @@ public:
     bool check_and_pop_bubble(glm::vec2 position);
 
 private:
+    Score *score;
     engine::opengl::SpriteMap map;
     engine::opengl::SpriteRenderer renderer;
 
@@ -27,6 +30,7 @@ private:
 
         glm::vec2 get_position() const { return position; }
         GLfloat get_radius() const { return radius; }
+        GLfloat get_destionation_radius() const { return destination_radius; }
         bool absorbs(const Bubble &bubble) const;
 
         void inflate(float update);

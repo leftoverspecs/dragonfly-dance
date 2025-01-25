@@ -11,6 +11,8 @@ find_package(SDL2_mixer REQUIRED CONFIG)
 add_subdirectory(engine)
 
 add_executable(game WIN32 src/game.cpp
+    src/boxyfont.cpp
+    src/boxyfont.hpp
     src/bubbles.cpp
     src/bubbles.hpp
     src/bubbles_sprite.cpp
@@ -23,6 +25,10 @@ add_executable(game WIN32 src/game.cpp
     src/dragonflies.hpp
     src/music.cpp
     src/music.hpp
+    src/score.cpp
+    src/score.hpp
+    src/timer.cpp
+    src/timer.hpp
 )
 target_link_libraries(game PRIVATE engine SDL2::SDL2main SDL2_mixer::SDL2_mixer)
 target_assets(game PRIVATE
@@ -33,5 +39,6 @@ target_assets(game PRIVATE
     assets/player2.png
     assets/dragonfly.png
     assets/dragonfly.ogg
+    assets/boxyfont.png
 )
 target_include_directories(game PRIVATE ${CMAKE_CURRENT_BINARY_DIR})

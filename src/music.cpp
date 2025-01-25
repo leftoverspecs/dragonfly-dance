@@ -8,5 +8,5 @@ Music::Music()
 }
 
 void Music::play() {
-    music.fade_in(0, 0);
+    music.fade_in(-1, 0);
 }
