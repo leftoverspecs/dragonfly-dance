@@ -7,6 +7,7 @@
 #include "player.hpp"
 #include "score.hpp"
 #include "timer.hpp"
+#include "supply.hpp"
 
 namespace engine::sdl {
 class Controller;
@@ -41,6 +42,7 @@ public:
 private:
     engine::sdl::Controller *controller1;
     engine::sdl::Controller *controller2;
+    engine::opengl::BoxRenderer box;
     Background *background;
     engine::opengl::Font *font;
     Music *music;
@@ -48,6 +50,8 @@ private:
 
     Score score;
     Bubbles bubbles;
+    Supply supply1;
+    std::optional<Supply> supply2;
     Player player1;
     std::optional<Player> player2;
     Timer timer;

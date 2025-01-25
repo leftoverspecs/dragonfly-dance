@@ -32,18 +32,20 @@ Game::Game(GLfloat width,
     : Scene(screen, height, window),
       controller1(&controller1),
       controller2(players == 2 ? &controller2 : nullptr),
+      box(width, height),
       background(&background),
       font(&font),
       music(&music),
       players(players),
       score(font, last_highscore),
       bubbles(width, height, score),
-      player1(controller1, bubbles, player1, true, 0, 0, width, height),
-
+      supply1(box, width, 1),
+      player1(controller1, bubbles, supply1, player1, true, 0, 0, width, height),
       timer(font),
       dragonflies(bubbles, timer, width, height) {
     if (players == 2) {
-        this->player2.emplace(controller2, bubbles, player2, false, width - 10, 10, width, height);
+        this->supply2.emplace(box, width, 2);
+        this->player2.emplace(controller2, bubbles, *supply2, player2, false, width - 10, 10, width, height);
     }
 }
 
@@ -59,6 +61,10 @@ void Game::on_loop(float delta_time) {
     }
     timer.update(delta_time);
     score.update(delta_time);
+    supply1.update(delta_time);
+    if (supply2) {
+        supply2->update(delta_time);
+    }
     dragonflies.update(delta_time);
     if (!is_fading_out() && timer.time_is_up()) {
         engine::audio::Music::fade_out(500.0f);
@@ -68,6 +74,7 @@ void Game::on_loop(float delta_time) {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     font->clear();
+    box.clear();
     timer.draw();
     score.draw();
     background->draw();
@@ -75,7 +82,12 @@ void Game::on_loop(float delta_time) {
     if (player2) {
         player2->draw();
     }
+    supply1.enqueue();
+    if (supply2) {
+        supply2->enqueue();
+    }
     dragonflies.draw();
     bubbles.draw();
     font->draw();
+    box.draw();
 }
