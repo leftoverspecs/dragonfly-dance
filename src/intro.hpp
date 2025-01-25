@@ -32,6 +32,9 @@ public:
           Music &music);
 
     int get_players() const { return players; }
+    void new_score(int score) { if (score > highscore) { highscore = score; } }
+    int get_highscore() const { return highscore; }
+
 private:
     engine::sdl::Controller *controller1;
     engine::sdl::Controller *controller2;
@@ -43,6 +46,7 @@ private:
     engine::opengl::BoxRenderer box;
     GLfloat animation_index{};
     int players{1};
+    int highscore{0};
 
     void on_faded_in() override;
     void on_loop(float delta_time) override;

@@ -34,8 +34,10 @@ public:
           engine::opengl::SpriteRenderer &player2,
           engine::opengl::Font &font,
           Music &music,
-          int players);
+          int players,
+          int last_highscore);
 
+    int get_score() const { return score.get_score(); }
 private:
     engine::sdl::Controller *controller1;
     engine::sdl::Controller *controller2;

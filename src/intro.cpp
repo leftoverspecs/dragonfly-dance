@@ -4,6 +4,7 @@
 #include "music.hpp"
 #include "sdl/controller.hpp"
 
+#include <format>
 #include <glm/gtc/matrix_transform.hpp>
 #include <opengl/font.hpp>
 
@@ -85,6 +86,13 @@ void Intro::on_loop(float delta_time) {
         model = glm::translate(model, glm::vec3(250.0f, 175.0f, 0.0f));
         model = glm::scale(model, glm::vec3(30.0f, 40.0f, 1.0f));
         font->write(model, players == 2 ? highlight : normal, "Two Players");
+    }
+    {
+        glm::mat4 model(1.0f);
+        model = glm::translate(model, glm::vec3(200.0f, 30.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(30.0f, 40.0f, 1.0f));
+        const std::string s = std::format("Highscore: {}", highscore);
+        font->write(model, highlight, s.c_str());
     }
     {
         glm::mat4 model(1.0f);

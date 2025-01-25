@@ -30,14 +30,14 @@ void Bubbles::update(float delta_time) {
             for (auto second = next(first); second != bubbles.end(); ++second) {
                 if (first->absorbs(*second)) {
                     first->inflate(0.1f * second->get_radius());
-                    score->update(first->get_lifetime() / 1000.0f * first->get_destionation_radius() / 10.0f);
+                    score->update_score(first->get_lifetime() / 1000.0f * first->get_destionation_radius() / 10.0f);
                     bubbles.erase(second);
                     found = true;
                     break;
                 }
                 if (second->absorbs(*first)) {
                     second->inflate(0.1f * first->get_radius());
-                    score->update(second->get_lifetime() / 1000.0f * second->get_destionation_radius() / 10.0f);
+                    score->update_score(second->get_lifetime() / 1000.0f * second->get_destionation_radius() / 10.0f);
                     bubbles.erase(first);
                     found = true;
                     break;

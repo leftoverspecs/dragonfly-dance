@@ -27,7 +27,8 @@ Game::Game(GLfloat width,
            engine::opengl::SpriteRenderer &player2,
            engine::opengl::Font &font,
            Music &music,
-           int players)
+           int players,
+           int last_highscore)
     : Scene(screen, height, window),
       controller1(&controller1),
       controller2(players == 2 ? &controller2 : nullptr),
@@ -35,7 +36,7 @@ Game::Game(GLfloat width,
       font(&font),
       music(&music),
       players(players),
-      score(font),
+      score(font, last_highscore),
       bubbles(width, height, score),
       player1(controller1, bubbles, player1, true, 0, 0, width, height),
 
@@ -57,6 +58,7 @@ void Game::on_loop(float delta_time) {
         player2->update(delta_time);
     }
     timer.update(delta_time);
+    score.update(delta_time);
     dragonflies.update(delta_time);
     if (!is_fading_out() && timer.time_is_up()) {
         engine::audio::Music::fade_out(500.0f);
