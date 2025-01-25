@@ -80,7 +80,7 @@ void Player::update(float msec) {
         slash_time += msec;
     } else {
         slash_time = 0;
-        bubbled = false;
+        bubbled = 0;
     }
 
     velocity.x /= HORIZONTAL_FRICTION;
@@ -110,9 +110,9 @@ void Player::update(float msec) {
         // Player drew its sword
         sprite_index_j = 2;
         sprite_index_i = std::min(static_cast<int>(std::floor(slash_time / 100.0f)) + 1, 8);
-        if (!bubbled) {
+        if (bubbled < 30) {
             bubbles->add_bubble(position + 25.0f * glm::vec2(static_cast<float>(rand()) / RAND_MAX, static_cast<float>(rand()) / RAND_MAX) + glm::vec2(0.0f, 75.0f));
-            bubbled = true;
+            bubbled++;
         }
     } else if (position.y > GROUND_MARGIN) {
         // Player is in air

@@ -4,6 +4,7 @@
 
 Music::Music()
     : music(dragonfly_ogg, sizeof(dragonfly_ogg)) {
+    engine::audio::Music::set_volume(MIX_MAX_VOLUME / 2);
 }
 
 void Music::play() {

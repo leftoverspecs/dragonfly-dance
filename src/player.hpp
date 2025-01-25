@@ -40,7 +40,7 @@ private:
     glm::vec2 velocity;
     float last_time_standing;
     float slash_time;
-    bool bubbled{false};
+    int bubbled{};
     float dead_time;
     float screen_width;
     float hit_cooldown;

@@ -14,6 +14,7 @@ public:
     void draw(float time);
 
     void add_bubble(glm::vec2 position);
+    void add_or_inflate_bubble(glm::vec2 position);
     bool check_bubbles(glm::vec2 position);
 
 private:
@@ -22,22 +23,17 @@ private:
 
     class Bubble {
     public:
-        Bubble(glm::vec2 position, GLfloat radius)
-            : position(position),
-              radius(radius),
-              destination_radius(radius),
-              start(position),
-              mid(start + 50.0f * glm::vec2(2.0f * static_cast<float>(rand()) / RAND_MAX - 1.0f, 2.0f * static_cast<float>(rand()) / RAND_MAX - 1.0f)),
-              end(mid + 50.0f * glm::vec2(2.0f * static_cast<float>(rand()) / RAND_MAX - 1.0f, 2.0f * static_cast<float>(rand()) / RAND_MAX - 1.0f)),
-              velocity(0.0001f) {}
+        Bubble(glm::vec2 position, GLfloat radius);
 
         glm::vec2 get_position() const { return position; }
         GLfloat get_radius() const { return radius; }
+        bool absorbs(const Bubble &bubble) const;
 
-        void inflate();
+        void inflate(float update);
         void update(float delta_time);
 
     private:
+        GLfloat lifetime{};
         glm::vec2 position;
         GLfloat radius;
         GLfloat destination_radius;
