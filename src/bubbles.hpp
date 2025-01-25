@@ -31,6 +31,7 @@ private:
         glm::vec2 get_position() const { return position; }
         GLfloat get_radius() const { return radius; }
         GLfloat get_destionation_radius() const { return destination_radius; }
+        GLfloat get_lifetime() const { return lifetime; }
         bool absorbs(const Bubble &bubble) const;
 
         void inflate(float update);
