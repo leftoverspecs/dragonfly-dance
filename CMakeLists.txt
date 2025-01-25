@@ -11,10 +11,20 @@ add_subdirectory(engine)
 
 add_executable(game WIN32 src/game.cpp
     src/bubbles.cpp
-    src/bubbles.hpp)
+    src/bubbles.hpp
+    src/bubbles_sprite.cpp
+    src/bubbles_sprite.hpp
+    src/background.cpp
+    src/background.hpp
+    src/player.cpp
+    src/player.hpp
+)
 target_link_libraries(game PRIVATE engine SDL2::SDL2main)
 target_assets(game PRIVATE
     assets/floor-stone.png
-    assets/bubbles.frag
-    assets/bubbles.vert)
+    assets/bubbles.png
+    assets/background.png
+    assets/player.png
+    assets/player2.png
+)
 target_include_directories(game PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
