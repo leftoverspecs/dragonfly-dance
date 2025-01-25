@@ -30,31 +30,26 @@ const float RIGHT_BORDER = 45.0f;
 
 Player::Player(engine::sdl::Controller &controller,
                Bubbles &bubbles,
+               engine::opengl::SpriteRenderer &player,
                bool female, float x, float y, GLfloat screen_width, GLfloat screen_height)
   : female(female),
     time(0.0f),
-    sprites(female ? player_png : player2_png, female ? sizeof(player_png) : sizeof(player2_png), female ? 9 : 13, female ? 7 : 16),
-    renderer(sprites, screen_width, screen_height),
+    player(&player),
     bubbles(&bubbles),
     controller(&controller),
     sprite_index_i(0),
     sprite_index_j(0),
     face_left(!female),
     position(x, y),
-    body(0.0f, 0.0f, 80.0f, 85.0f, screen_width, screen_height),
-    sword(0.0f, 0.0f, 60.0f, 60.0f, screen_width, screen_height),
+    //body(0.0f, 0.0f, 80.0f, 85.0f, screen_width, screen_height),
+    //sword(0.0f, 0.0f, 60.0f, 60.0f, screen_width, screen_height),
     velocity(0.0f, 0.0f),
     last_time_standing(0.0f),
     slash_time(0.0f),
     dead_time(0.0f),
     screen_width(screen_width),
-    hit_cooldown(0.0f),
-    other(nullptr)
+    hit_cooldown(0.0f)
 { }
-
-void Player::set_other(const Player &other) {
-    this->other = &other;
-}
 
 void Player::update(float msec) {
     time += msec;
@@ -162,9 +157,6 @@ void Player::update(float msec) {
             sprite_index_j = 0;
         }
     }
-    //std::cout << sprite_index_i << ", " << sprite_index_j << '\n';
-    body.relocate(position.x - 40.0f, position.y + 2.0f);
-    sword.relocate(position.x + (face_left ? -65.0f : 25.0f), position.y + 20.0f);
 
     if (hit_cooldown > 0.0f) {
         hit_cooldown -= msec;
@@ -180,7 +172,7 @@ void Player::update(float msec) {
 }
 
 void Player::draw() {
-    renderer.clear();
+    player->clear();
     glm::mat4 model(1.0f);
     model = glm::translate(model, glm::vec3(position, 0.0f));
     model = glm::scale(model, glm::vec3(128.0f, 128.0f, 1.0f));
@@ -190,8 +182,8 @@ void Player::draw() {
     if (hit_cooldown > 0.0f) {
         alpha = static_cast<int>(std::floor(hit_cooldown / 5.0f)) % 2;
     }
-    renderer.queue(model, glm::vec4(1.0f, 1.0f, 1.0f, alpha), sprite_index_i, sprite_index_j);
-    renderer.draw();
+    player->queue(model, glm::vec4(1.0f, 1.0f, 1.0f, alpha), sprite_index_i, sprite_index_j);
+    player->draw();
     //body.draw(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
     //sword.draw(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 }

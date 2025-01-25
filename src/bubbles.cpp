@@ -50,7 +50,7 @@ void Bubbles::update(float delta_time) {
     } while (found);
 }
 
-void Bubbles::draw(float time) {
+void Bubbles::draw() {
     renderer.clear();
     for (const auto &bubble: bubbles) {
         glm::mat4 model(1.0f);

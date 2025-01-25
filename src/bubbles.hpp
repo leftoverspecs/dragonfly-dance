@@ -13,7 +13,7 @@ public:
     Bubbles(GLsizei width, GLsizei height, Score &score);
 
     void update(float delta_time);
-    void draw(float time);
+    void draw();
 
     void add_bubble(glm::vec2 position);
     void add_or_inflate_bubble(glm::vec2 position);

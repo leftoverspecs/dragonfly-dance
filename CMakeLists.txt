@@ -29,6 +29,10 @@ add_executable(game WIN32 src/game.cpp
     src/score.hpp
     src/timer.cpp
     src/timer.hpp
+    src/intro.cpp
+    src/intro.hpp
+    src/main.cpp
+    src/game.hpp
 )
 target_link_libraries(game PRIVATE engine SDL2::SDL2main SDL2_mixer::SDL2_mixer)
 target_assets(game PRIVATE
@@ -38,6 +42,7 @@ target_assets(game PRIVATE
     assets/player2.png
     assets/dragonfly.png
     assets/dragonfly.ogg
+    assets/intro.ogg
     assets/boxyfont.png
 )
 target_include_directories(game PRIVATE ${CMAKE_CURRENT_BINARY_DIR})

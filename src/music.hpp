@@ -6,7 +6,9 @@ class Music {
 public:
     Music();
 
-    void play();
+    void chase();
+    void intro();
 private:
-    engine::audio::Music music;
+    engine::audio::Music intro_music;
+    engine::audio::Music chase_music;
 };
