@@ -19,7 +19,7 @@ Dragonflies::Dragonflies(Bubbles &bubbles, GLfloat width, GLfloat height)
 void Dragonflies::update(float delta_time) {
     for (auto &dragonfly: dragonflies) {
         dragonfly.update(delta_time);
-        if (!dragonfly.is_flying_home() && bubbles->check_bubbles(dragonfly.get_position())) {
+        if (!dragonfly.is_flying_home() && bubbles->check_and_pop_bubble(dragonfly.get_position())) {
             dragonfly.fly_home();
         }
     }

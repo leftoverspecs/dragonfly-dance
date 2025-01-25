@@ -15,7 +15,7 @@ public:
 
     void add_bubble(glm::vec2 position);
     void add_or_inflate_bubble(glm::vec2 position);
-    bool check_bubbles(glm::vec2 position);
+    bool check_and_pop_bubble(glm::vec2 position);
 
 private:
     engine::opengl::SpriteMap map;

@@ -6,24 +6,6 @@
 #include <glm/gtx/transform.hpp>
 #include <map>
 
-
-namespace {
-
-GLfloat screen_vertex_data[] = {
-        /*   X      Y     S     T    */
-        -2.0f, -2.0f, -0.5f, -0.5f,
-        -2.0f, 2.0f, -0.5f, 1.5f,
-        2.0f, 2.0f, 1.5f, 1.5f,
-
-        -2.0f, -2.0f, -0.5f, -0.5f,
-        2.0f, 2.0f, 1.5f, 1.5f,
-        2.0f, -2.0f, 1.5f, -0.5f};
-
-constexpr int ATTRIBUTE_POSITION = 0;
-constexpr int ATTRIBUTE_TEXTURE_COORD = 1;
-
-}// namespace
-
 Bubbles::Bubbles(GLsizei width, GLsizei height)
     : map(bubbles_sprite, bubbles_sprite_size, 24, 16),
       renderer(map, width, height),
@@ -45,6 +27,12 @@ void Bubbles::update(float delta_time) {
                     found = true;
                     break;
                 }
+                if (second->absorbs(*first)) {
+                    second->inflate(0.1f * first->get_radius());
+                    bubbles.erase(first);
+                    found = true;
+                    break;
+                }
             }
             if (found) {
                 break;
@@ -58,7 +46,7 @@ void Bubbles::draw(float time) {
     for (const auto &bubble: bubbles) {
         glm::mat4 model(1.0f);
         model = glm::translate(model, glm::vec3(bubble.get_position(), 0.0f));
-        model = scale(model, glm::vec3(1.5f * bubble.get_radius(), 1.5f * bubble.get_radius(), 1.0));
+        model = scale(model, glm::vec3(2.0f * bubble.get_radius(), 2.0f * bubble.get_radius(), 1.0));
         model = translate(model, glm::vec3(-0.5f, -0.5f, 0.0f));
         renderer.queue(model, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), 16, 8, 4, 4);
     }
@@ -79,11 +67,16 @@ void Bubbles::add_bubble(glm::vec2 position) {
     bubbles.push_back(Bubble{position, 10.0f});
 }
 
-bool Bubbles::check_bubbles(glm::vec2 position) {
-    return std::erase_if(bubbles, [&position](Bubble &bubble) {
-               return distance(position, bubble.get_position()) < bubble.get_radius();
-           }) > 0;
+bool Bubbles::check_and_pop_bubble(glm::vec2 position) {
+    for (auto it = bubbles.begin(); it != bubbles.end(); ++it) {
+        if (distance(position, it->get_position()) < it->get_radius()) {
+            bubbles.erase(it);
+            return true;
+        }
+    }
+    return false;
 }
+
 Bubbles::Bubble::Bubble(glm::vec2 position, GLfloat radius)
     : position(position),
       radius(radius),
