@@ -4,6 +4,7 @@
 #include <opengl/font.hpp>
 
 #include <glm/gtx/transform.hpp>
+#include <SDL.h>
 
 Timer::Timer(engine::opengl::Font &font)
     : font(&font),

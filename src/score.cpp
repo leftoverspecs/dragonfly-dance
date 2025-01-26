@@ -4,6 +4,7 @@
 #include <opengl/font.hpp>
 
 #include <glm/gtx/transform.hpp>
+#include <SDL.h>
 
 Score::Score(engine::opengl::Font &font, int last_highscore) : font(&font), color(1.0f, 1.0f, 1.0f, 1.0f), last_highscore(last_highscore) {
 }
@@ -17,7 +18,7 @@ void Score::update(GLfloat delta_time) {
         time += delta_time;
         const GLfloat phase = 2 * M_PI * time / 1000.0f;
         this->color = glm::vec4(0.5f * std::sin(phase) + 0.5f,
-            0.5f * std::sin(phase + M_PI_2) + 0.5f,
+            0.5f * std::sin(phase + M_PI / 2.0f) + 0.5f,
             0.5f * std::sin(phase + M_PI) + 0.5f, 1.0f);
     } else {
         this->color = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);

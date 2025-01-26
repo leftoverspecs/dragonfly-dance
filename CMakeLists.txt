@@ -34,6 +34,7 @@ add_executable(dragonflydance WIN32 src/game.cpp
     src/game.hpp
     src/supply.cpp
     src/supply.hpp
+    assets/logo.rc
     #src/audiofx.cpp
     #src/audiofx.hpp
 )

@@ -1,6 +1,7 @@
 #include "supply.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
+#include <SDL.h>
 
 Supply::Supply(engine::opengl::BoxRenderer &box, GLfloat width, int player, int num_players)
     : box(&box),
