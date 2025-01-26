@@ -5,6 +5,12 @@ bubbles.
 
 ![gamestill](./gamestill.png)
 
+## Clone
+
+```bash
+git clone --recurse-submodules git@github.com:leftoverspecs/dragonfly-dance.git
+```
+
 ## Build
 
 ### GNU/Linux
