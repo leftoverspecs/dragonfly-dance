@@ -170,6 +170,7 @@ void Player::update(float msec) {
         hit_cooldown = 1000.0f;
         velocity.x = face_left ? 1.0f : -1.0f;
     }
+    bubbles->stir(position, velocity);
     supply->try_fill(position);
 }
 

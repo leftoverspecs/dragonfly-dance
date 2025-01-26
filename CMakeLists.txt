@@ -35,6 +35,8 @@ add_executable(game WIN32 src/game.cpp
     src/game.hpp
     src/supply.cpp
     src/supply.hpp
+    #src/audiofx.cpp
+    #src/audiofx.hpp
 )
 target_link_libraries(game PRIVATE engine SDL2::SDL2main SDL2_mixer::SDL2_mixer)
 target_assets(game PRIVATE

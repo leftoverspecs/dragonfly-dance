@@ -60,9 +60,7 @@ int main(int argc, char *argv[]) {
         controller1.reset();
         controller2.reset();
         Game game(WIDTH, HEIGHT, screen, window, controller1, controller2, background, player1, player2, font, music, intro.get_players(), intro.get_highscore());
-        if (!game.fade_in_and_run(500.0f)) {
-            break;
-        }
+        game.fade_in_and_run(500.0f);
         intro.new_score(game.get_score());
     }
     return 0;

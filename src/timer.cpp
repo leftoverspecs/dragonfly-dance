@@ -7,7 +7,7 @@
 
 Timer::Timer(engine::opengl::Font &font)
     : font(&font),
-      initial_time(1 * 60 * 1000 + 42 * 1000),
+      initial_time(1 * 60 * 1000 + 44 * 1000),
       remaining_time(initial_time) {
 }
 

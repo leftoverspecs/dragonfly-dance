@@ -6,9 +6,6 @@
 
 #include <assets/dragonfly.png.h>
 #include <glm/gtc/matrix_transform.hpp>
-#include <iostream>
-#include <map>
-#include <ostream>
 
 Dragonflies::Dragonflies(Bubbles &bubbles, Timer &timer, GLfloat width, GLfloat height)
     : bubbles(&bubbles),
@@ -39,7 +36,6 @@ void Dragonflies::update(float delta_time) {
         //spawn_time = 3000.0f * static_cast<GLfloat>(rand()) / RAND_MAX;
         const GLfloat factor = (1 - exp(-2 * timer->get_available_time_percentage())) / (1 - exp(-2));
         spawn_time = (1000.0f * static_cast<GLfloat>(rand()) / RAND_MAX + 500.0f) * factor + 100.0f;
-        std::cout << spawn_time << std::endl;
         add_dragonfly();
     }
 }
