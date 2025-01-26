@@ -34,7 +34,7 @@ constexpr int HEIGHT = 600;
 
 int main(int argc, char *argv[]) {
     engine::sdl::initialize init(SDL_INIT_VIDEO | SDL_INIT_GAMECONTROLLER | SDL_INIT_AUDIO);
-    engine::sdl::OpenGlWindow window("Dragonfly Chase!", SDL_WINDOWPOS_CENTERED,
+    engine::sdl::OpenGlWindow window("Dragonfly Dance!", SDL_WINDOWPOS_CENTERED,
                                         SDL_WINDOWPOS_CENTERED,
                                         WIDTH,
                                         HEIGHT,

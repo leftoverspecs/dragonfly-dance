@@ -1,16 +1,15 @@
 cmake_minimum_required(VERSION 3.30)
-project(ggj2025 CXX)
+project(dragonflydance CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 add_definitions(-DGLM_ENABLE_EXPERIMENTAL)
 
 find_package(SDL2 REQUIRED CONFIG)
-find_package(SDL2_net REQUIRED CONFIG)
 find_package(SDL2_mixer REQUIRED CONFIG)
 
 add_subdirectory(engine)
 
-add_executable(game WIN32 src/game.cpp
+add_executable(dragonflydance WIN32 src/game.cpp
     src/boxyfont.cpp
     src/boxyfont.hpp
     src/bubbles.cpp
@@ -38,8 +37,8 @@ add_executable(game WIN32 src/game.cpp
     #src/audiofx.cpp
     #src/audiofx.hpp
 )
-target_link_libraries(game PRIVATE engine SDL2::SDL2main SDL2_mixer::SDL2_mixer)
-target_assets(game PRIVATE
+target_link_libraries(dragonflydance PRIVATE engine SDL2::SDL2main SDL2_mixer::SDL2_mixer)
+target_assets(dragonflydance PRIVATE
     assets/bubbles.png
     assets/background.png
     assets/player.png
@@ -49,4 +48,4 @@ target_assets(game PRIVATE
     assets/intro.ogg
     assets/boxyfont.png
 )
-target_include_directories(game PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+target_include_directories(dragonflydance PRIVATE ${CMAKE_CURRENT_BINARY_DIR})

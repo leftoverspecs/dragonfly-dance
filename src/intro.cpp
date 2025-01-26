@@ -98,7 +98,7 @@ void Intro::on_loop(float delta_time) {
         glm::mat4 model(1.0f);
         model = glm::translate(model, glm::vec3(140.0f, 400.0f, 0.0f));
         model = glm::scale(model, glm::vec3(45.0f, 64.0f, 1.0f));
-        font->write(model, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), "Dragonfly Chase!");
+        font->write(model, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), "Dragonfly Dance!");
     }
     {
         glm::mat4 model(1.0f);
