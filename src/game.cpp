@@ -39,12 +39,12 @@ Game::Game(GLfloat width,
       players(players),
       score(font, last_highscore),
       bubbles(width, height, score),
-      supply1(box, width, 1),
+      supply1(box, width, 1, players),
       player1(controller1, bubbles, supply1, player1, true, 0, 0, width, height),
       timer(font),
-      dragonflies(bubbles, timer, width, height) {
+      dragonflies(bubbles, timer, width, height, players) {
     if (players == 2) {
-        this->supply2.emplace(box, width, 2);
+        this->supply2.emplace(box, width, 2, players);
         this->player2.emplace(controller2, bubbles, *supply2, player2, false, width - 10, 10, width, height);
     }
 }

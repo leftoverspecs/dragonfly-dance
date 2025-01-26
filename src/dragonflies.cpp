@@ -7,14 +7,15 @@
 #include <assets/dragonfly.png.h>
 #include <glm/gtc/matrix_transform.hpp>
 
-Dragonflies::Dragonflies(Bubbles &bubbles, Timer &timer, GLfloat width, GLfloat height)
+Dragonflies::Dragonflies(Bubbles &bubbles, Timer &timer, GLfloat width, GLfloat height, int num_players)
     : bubbles(&bubbles),
       timer(&timer),
       sprites(dragonfly_png, sizeof(dragonfly_png), 7, 4),
       renderer(sprites, width, height),
       width(width),
       height(height),
-      spawn_time(10000.0f * static_cast<GLfloat>(rand()) / RAND_MAX) {
+      num_players(num_players),
+      spawn_time(10000.0f / num_players * static_cast<GLfloat>(rand()) / RAND_MAX) {
     //add_dragonfly();
 }
 
@@ -35,7 +36,7 @@ void Dragonflies::update(float delta_time) {
     if (spawn_time < 0.0f || dragonflies.size() < 2) {
         //spawn_time = 3000.0f * static_cast<GLfloat>(rand()) / RAND_MAX;
         const GLfloat factor = (1 - exp(-2 * timer->get_available_time_percentage())) / (1 - exp(-2));
-        spawn_time = (1000.0f * static_cast<GLfloat>(rand()) / RAND_MAX + 500.0f) * factor + 100.0f;
+        spawn_time = (1000.0f / num_players * static_cast<GLfloat>(rand()) / RAND_MAX + 500.0f) * factor + 100.0f;
         add_dragonfly();
     }
 }

@@ -8,7 +8,7 @@ class Timer;
 
 class Dragonflies {
 public:
-    Dragonflies(Bubbles &bubbles, Timer &timer, GLfloat width, GLfloat height);
+    Dragonflies(Bubbles &bubbles, Timer &timer, GLfloat width, GLfloat height, int num_players);
 
     void update(float delta_time);
     void draw();
@@ -50,5 +50,6 @@ private:
     std::vector<Dragonfly> dragonflies;
     GLfloat width;
     GLfloat height;
+    int num_players;
     GLfloat spawn_time;
 };

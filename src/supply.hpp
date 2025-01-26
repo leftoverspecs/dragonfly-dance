@@ -4,7 +4,7 @@
 
 class Supply {
 public:
-    Supply(engine::opengl::BoxRenderer &box, GLfloat width, int player);
+    Supply(engine::opengl::BoxRenderer &box, GLfloat width, int player, int num_players);
 
     void update(GLfloat delta_time);
     void enqueue() const;
@@ -18,6 +18,7 @@ private:
     glm::vec4 color;
     GLfloat width;
     int player;
+    int num_players;
     GLfloat max;
     GLfloat current;
 };

@@ -2,11 +2,12 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-Supply::Supply(engine::opengl::BoxRenderer &box, GLfloat width, int player)
+Supply::Supply(engine::opengl::BoxRenderer &box, GLfloat width, int player, int num_players)
     : box(&box),
       color(1.0f, 1.0f, 1.0f, 0.5f),
       width(width),
       player(player),
+      num_players(num_players),
       max(50.0),
       current(max) {
 }
@@ -49,9 +50,9 @@ void Supply::drain() {
 void Supply::try_fill(glm::vec2 position) {
     if (current < max) {
         if (player == 1 && position.x < 40.0f && position.y < 160.0f) {
-            current += 0.5f;
+            current += 0.5f / num_players;
         } else if (player == 2 && position.x > width - 60.0f && position.y < 160.0f) {
-            current += 0.5f;
+            current += 0.5f / num_players;
         }
     } else {
         current = max;
