@@ -9,18 +9,19 @@
 
 #include <audio/audio.hpp>
 
-#include <opengl/destination.hpp>
 #include <opengl/spritemap.hpp>
 #include <opengl/spriterenderer.hpp>
 
 #include <sdl/initialize.hpp>
 #include <sdl/openglwindow.hpp>
 #include <sdl/scene.hpp>
+#include <graphics/image.hpp>
 
 #include <glm/gtx/transform.hpp>
 
 #include <assets/player.png.h>
 #include <assets/player2.png.h>
+#include <assets/logo.png.h>
 
 #ifdef _WIN32
 extern "C" {
@@ -39,6 +40,8 @@ int main(int argc, char *argv[]) {
                                         WIDTH,
                                         HEIGHT,
                                         SDL_WINDOW_SHOWN);
+    engine::graphics::Image logo(logo_png, sizeof(logo_png));
+    window.set_icon(logo);
     engine::opengl::Screen screen(WIDTH, HEIGHT);
     engine::audio::Audio audio(44100, MIX_DEFAULT_FORMAT, 2, 128);
     Background background(WIDTH, HEIGHT);

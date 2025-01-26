@@ -47,5 +47,6 @@ target_assets(dragonflydance PRIVATE
     assets/dragonfly.ogg
     assets/intro.ogg
     assets/boxyfont.png
+    assets/logo.png
 )
 target_include_directories(dragonflydance PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
